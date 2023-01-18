@@ -8,4 +8,3 @@ orders.post('/', Controllers.create)
 orders.get('/:id', Controllers.getById)
 orders.delete('/:id', Controllers.remove).post('/:id', Controllers.update)
 
-export default orders

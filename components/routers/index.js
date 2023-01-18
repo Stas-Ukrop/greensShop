@@ -8,4 +8,3 @@ useApi.use('/list', listOfRouters)
 useApi.use('/orders', orders)
 useApi.use('/users', userRouter)
 
-export default useApi
