@@ -8,7 +8,8 @@ const NAME_DB_ORDERS = process.env.NAME_DB_ORDERS
 const getCollection = async (db, name) => {
     console.log('repo')
     const client = await db
-    const collection = await client.getCollection(name).find({})
+    console.log(name)
+    const collection = await client.find({})
     console.log(collection)
     return collection
 }

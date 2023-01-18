@@ -2,11 +2,12 @@ import myDB from '../../db/db.js'
 import mongodb from 'mongodb'
 import dotenv from 'dotenv'
 
-const NAME_DB_ORDERS=process.env.NAME_DB_ORDERS
+const NAME_DB_ORDERS = process.env.NAME_DB_ORDERS
 
-const getCollection = async (db,name) => {
+const getCollection = async (db, name) => {
     const client = await db
-    const collection=await client.db().collection(name)
+    console.log(client)
+    const collection = await client.db().collection(name)
     return collection
 }
 const getAll = async () => {

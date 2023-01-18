@@ -4,7 +4,7 @@ dotenv.config()
 
 const URI = process.env.URI_DB
 
-const myDB = mongoose.connect(
+const myDB = new mongoose.connect(
     URI,
     {
         useNewUrlParser: true,
@@ -12,8 +12,9 @@ const myDB = mongoose.connect(
         maxPoolSize: 5
     }
 )
+
 mongoose.connection.on('connected', () => {
-    console.log(`Connection open ${URI}`)
+    console.log(`Connection open with ${URI}`)
 })
 mongoose.connection.on('error', (e) => {
     console.log(`Error mongoose connection ${e.message}`)
