@@ -1,11 +1,19 @@
 import express from 'express'
-import Controllers from '../../controllers/users/controllersForUsers.js'
+import controllersForUsers from '../../controllers/users/controllersForUsers.js'
+import controllersUser from '../../controllers/users/users.js'
+import Validation from '../../validation/users/user.js'
+
 const userRouter = express.Router()
 
-userRouter.get('/', Controllers.getAll)
-userRouter.post('/', Controllers.create)
+userRouter.post('/login', Validation.validateSignInUser, controllersUser.login)
+userRouter.post('/logout', Validation.validateSignInUser, controllersUser.logout)
 
-userRouter.get('/:id', Controllers.getById)
-userRouter.delete('/:id', Controllers.remove).post('/:id', Controllers.update)
+userRouter.get('/', controllersForUsers.getAll)
+userRouter.post('/register', Validation.validationSignUpUser, controllersForUsers.create)
+
+userRouter
+    .get('/:id', controllersForUsers.getById)
+    .delete('/:id', controllersForUsers.remove)
+    .post('/:id', controllersForUsers.update)
 
 export default userRouter

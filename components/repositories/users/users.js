@@ -28,12 +28,24 @@ const update = async (id, body) => {
     return result
 }
 
+const findByEmail = async (email) => {
+    return await User.findOne({ email })
+}
+
+const updateToken = async (id, token) => {
+    return await User.updateOne({
+        _id: id
+    }, { token })
+}
+
 export default {
     getAll,
     getById,
     remove,
     create,
-    update
+    update,
+    updateToken,
+    findByEmail
 }
 
 // import User from '../model/user.js'
