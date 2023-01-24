@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import dotenv from 'dotenv/config'
 const SECRET_KEY = process.env.SECRET_KEY
-import User from '../repositories/users.js'
+import User from '../repositories/users/users.js'
 
 const opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()

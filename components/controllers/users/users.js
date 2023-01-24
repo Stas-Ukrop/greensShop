@@ -66,4 +66,56 @@ const logout = async (req, res, next) => {
     }
 }
 
-export default { register, login, logout }
+const getAll = async (req, res, next) => {
+    try {
+        const users = await User.getAll()
+        res.json({ status: 'success', code: 200, data: { users } })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getById = async (req, res, next) => {
+    try {
+        const user = await User.getById(req.params.id)
+        if (user) {
+            return res.json({ status: 'success', code: 200, data: { user } })
+        }
+        return res.json({ status: 'error', code: 404, message: 'Not found' })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const remove = async (req, res, next) => {
+    try {
+        const user = await User.remove(req.params.id)
+        if (user) {
+            res.status(201).json({ status: 'success', code: 204, data: { user } })
+        }
+        return res.json({ status: 'error', code: 404, message: 'Not found' })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const update = async (req, res, next) => {
+    try {
+        const user = await User.update(req.params.id, req.body)
+        if (user) {
+            res.status(201).json({ status: 'success', code: 204, data: { user } })
+        }
+        return res.json({ status: 'error', code: 404, message: 'Not found' })
+    } catch (error) {
+        next(error)
+    }
+}
+export default {
+    register,
+    login,
+    logout,
+    getAll,
+    getById,
+    remove,
+    update
+}

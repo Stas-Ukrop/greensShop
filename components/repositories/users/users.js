@@ -15,11 +15,6 @@ const remove = async (id) => {
     return result
 }
 
-const create = async (body) => {
-    const result = await User.create(body)
-    return result
-}
-
 const update = async (id, body) => {
     const result = await User.findOneAndUpdate(
         { _id: id },
@@ -42,31 +37,7 @@ export default {
     getAll,
     getById,
     remove,
-    create,
     update,
     updateToken,
     findByEmail
 }
-
-// import User from '../model/user.js'
-
-// const findById = async (id) => {
-//     return await User.findById(id)
-// }
-
-// const findByEmail = async (email) => {
-//     return await User.findOne({ email })
-// }
-
-// const create = async (body) => {
-//     const user = new User(body)
-//     return await user.save()
-// }
-
-// const updateToken = async (id, token) => {
-//     return await User.updateOne({
-//         _id: id
-//     }, { token })
-// }
-
-// export default { findById, findByEmail, create, updateToken }
