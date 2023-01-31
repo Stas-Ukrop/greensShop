@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs'
 import dotenv from 'dotenv/config'
 import role from '../../helpers/number.js'
-
+const SALT_WORK = Number(process.env.SALT_WORK)
 const { Schema, model } = mongoose
 
 const userSchema = new Schema({
@@ -49,7 +49,9 @@ userSchema.pre('save', async function (next) {
 })
 
 userSchema.methods.isValidPassword = async function (password) {
-    return await bcryptjs.compare(password, this.password)
+    const salt = await bcryptjs.genSalt(SALT_WORK)
+    const pas = await bcryptjs.hash(password, salt)
+    return await bcryptjs.compare(pas, this.password)
 }
 
 const User = model('user', userSchema)

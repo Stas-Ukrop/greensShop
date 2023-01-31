@@ -1,9 +1,11 @@
 import User from '../../repositories/users/users.js'
 import arr from '../../helpers/number.js'
 import jwt from 'jsonwebtoken'
+import bcryptjs from 'bcryptjs'
 import dotenv from 'dotenv/config'
 
 const SECRET_KEY = process.env.SECRET_KEY
+const SALT_WORK = Number(process.env.SALT_WORK)
 
 const register = async (req, res, next) => {
     try {
@@ -11,15 +13,17 @@ const register = async (req, res, next) => {
         if (user) {
             return res.status(arr.HttpCode.CONFLICT).json({ status: 'error', code: arr.HttpCode.CONFLICT, message: 'Email is already used' })
         }
-        const { id, name, email, password, role } = await User.create(req.body)
+        const { name, email, password, role } = req.body
+        const salt = await bcryptjs.genSalt(SALT_WORK)
+        const pas = await bcryptjs.hash(password, salt)
+        await User.create({ name, email, password: pas, role })
         return res.status(arr.HttpCode.CREATED).json({
             status: 'success',
             code: arr.HttpCode.CREATED,
             data: {
-                id,
                 name,
                 email,
-                password,
+                pas,
                 role
             }
         })
@@ -36,10 +40,9 @@ const login = async (req, res, next) => {
 
             return res.status(arr.HttpCode.UNAUTHORIZED).json({ status: 'error', code: arr.HttpCode.UNAUTHORIZED, message: 'Invalid credentials' })
         }
-        const id = user.id
+        const { id } = user
         const payload = {
-            id,
-            test: 'the best of the best'
+            id
         }
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '2h' })
         await User.updateToken(id, token)
@@ -55,12 +58,9 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        const user = await User.getAll()
-        res.json({
-            status: 'success', code: arr.HttpCode.OK, data: {
-                user
-            }
-        })
+        const { id } = req.user
+        await User.updateToken(id, null)
+        res.status(204).json()
     } catch (error) {
         next(error)
     }

@@ -6,7 +6,7 @@ import guard from '../../config/guard.js'
 const userRouter = express.Router()
 
 userRouter.post('/login', Validation.validateSignInUser, controllersUser.login)
-userRouter.post('/logout', guard, Validation.validateSignOutUser, controllersUser.logout)
+userRouter.get('/logout', guard, controllersUser.logout)
 
 userRouter.get('/', guard, Validation.validateGetAllUser, controllersUser.getAll)
 userRouter.post('/register', Validation.validationSignUpUser, controllersUser.register)

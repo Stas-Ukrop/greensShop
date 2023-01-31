@@ -15,6 +15,11 @@ const remove = async (id) => {
     return result
 }
 
+const create = async (body) => {
+    const user = new User(body)
+    return await user.save()
+}
+
 const update = async (id, body) => {
     const result = await User.findOneAndUpdate(
         { _id: id },
@@ -39,5 +44,6 @@ export default {
     remove,
     update,
     updateToken,
-    findByEmail
+    findByEmail,
+    create
 }

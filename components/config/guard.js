@@ -15,7 +15,7 @@ const guard = (req, res, next) => {
             return res.status(num.HttpCode.UNAUTHORIZED).json({ status: 'Error', code: num.HttpCode.UNAUTHORIZED, message: 'Invalid credentials' })
         }
         req.user = user
-        return next()
+        next()
     })(req, res, next)
 }
 
