@@ -1,26 +1,19 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
+
 const { Schema, model, SchemaTypes } = mongoose
 
-const orderSchema = new Schema({
+const bakedGoodsSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    street: {
+    price: {
         type: String,
         required: true
     },
-    number: {
+    mass: {
         type: String,
         required: true,
-    },
-    building: {
-        type: String,
-        required: true
-    },
-    orders: {
-        type: Array,
-
     },
     owner: {
         type: SchemaTypes.ObjectId,
@@ -31,6 +24,6 @@ const orderSchema = new Schema({
     { versionKey: false, timestamps: true },
 )
 
-const Order = model('order', orderSchema)
+const BakedGood = model('bakedGood', bakedGoodsSchema)
 
-export default Order
+export default BakedGood

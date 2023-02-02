@@ -1,44 +1,43 @@
 import express from "express"
 const router = express.Router()
+import bakedGoods from "../listGoods/bakedGoods/bakedGoods.js"
 
 
-router.get('/bakedGoods', (req, res) => {
-    res.send('baked goods')
-})
-router.get('/driedFruits', (req, res) => {
+router.use('/bakedGoods', bakedGoods)
+router.use('/driedFruits', (req, res) => {
     res.send('dried fruit')
 })
-router.get('/vegetables', (req, res) => {
+router.use('/vegetables', (req, res) => {
     res.send('vegetables')
 })
-router.get('/jamAndPickles', (req, res) => {
+router.use('/jamAndPickles', (req, res) => {
     res.send('jamAndPickles')
 })
-router.get('/sweets', (req, res) => {
+router.use('/sweets', (req, res) => {
     res.send('sweets')
 })
-router.get('/nuts', (req, res) => {
+router.use('/nuts', (req, res) => {
     res.send('nuts')
 })
-router.get('/mooshrooms', (req, res) => {
+router.use('/mooshrooms', (req, res) => {
     res.send('mooshrooms')
 })
-router.get('/greens', (req, res) => {
+router.use('/greens', (req, res) => {
     res.send('greens')
 })
-router.get('/berryAndFruits', (req, res) => {
+router.use('/berryAndFruits', (req, res) => {
     res.send('berryAndFruits')
 })
-router.get('/drinks', (req, res) => {
+router.use('/drinks', (req, res) => {
     res.send('drinks')
 })
-router.get('/milks', (req, res) => {
+router.use('/milks', (req, res) => {
     res.send('milks')
 })
-router.get('/fish', (req, res) => {
+router.use('/fish', (req, res) => {
     res.send('fish')
 })
-router.get('/meat', (req, res) => {
+router.use('/meat', (req, res) => {
     res.send('meat')
 })
 export default router

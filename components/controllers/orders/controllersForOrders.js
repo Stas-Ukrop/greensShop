@@ -23,7 +23,7 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
-        const order = await Orders.create(req.body)
+        const order = await Orders.create(req.user._id, req.body)
         res.status(201).json({ status: 'success', code: 201, data: { order } })
     } catch (error) {
         next(error)

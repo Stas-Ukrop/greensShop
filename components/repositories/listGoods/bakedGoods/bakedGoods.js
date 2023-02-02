@@ -1,22 +1,22 @@
-import Order from '../../model/orders/orders.js'
+import BakedGood from '../../../model/listGoods/bakedGoods/bakedGoods.js'
 
 const getAll = async () => {
-    const result = await Order.find()
+    const result = await BakedGood.find()
     return result
 }
 
 const getById = async (id) => {
-    const results = await Order.findOne({ _id: id })
+    const results = await BakedGood.findOne({ _id: id })
     return results
 }
 
 const remove = async (id) => {
-    const result = await Order.findOneAndRemove({ _id: id })
+    const result = await BakedGood.findOneAndRemove({ _id: id })
     return result
 }
 
 const create = async (id, body) => {
-    const result = await Order.create({
+    const result = await BakedGood.create({
         owner: id,
         ...body
     })
@@ -24,7 +24,7 @@ const create = async (id, body) => {
 }
 
 const update = async (id, body) => {
-    const result = await Order.findOneAndUpdate(
+    const result = await BakedGood.findOneAndUpdate(
         { _id: id },
         { ...body },
         { new: true })

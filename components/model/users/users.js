@@ -29,7 +29,7 @@ const userSchema = new Schema({
         enum: [
             role.role.guest, role.role.user, role.role.admin
         ],
-        default: role.role.admin
+        default: role.role.user
     },
     token: {
         type: String,
