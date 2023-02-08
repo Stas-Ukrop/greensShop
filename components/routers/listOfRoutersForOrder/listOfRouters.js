@@ -10,6 +10,9 @@ import mooshroom from '../listGoods/mooshrooms/mooshrooms.js'
 import greens from '../listGoods/greens/greens.js'
 import berryAndFruit from '../listGoods/berryAndFruits/berryAndFruits.js'
 import drink from '../listGoods/drinks/drinks.js'
+import milk from '../listGoods/milks/milks.js'
+import fishRout from '../listGoods/fish/fish.js'
+import meatRout from '../listGoods/meat/meat.js'
 
 router.use('/bakedGoods', bakedGoods)
 router.use('/driedFruits', driedFruit)
@@ -21,14 +24,8 @@ router.use('/mooshrooms', mooshroom)
 router.use('/greens', greens)
 router.use('/berryAndFruits', berryAndFruit)
 router.use('/drinks', drink)
+router.use('/milks', milk)
+router.use('/fish', fishRout)
+router.use('/meat', meatRout)
 
-router.use('/milks', (req, res) => {
-    res.send('milks')
-})
-router.use('/fish', (req, res) => {
-    res.send('fish')
-})
-router.use('/meat', (req, res) => {
-    res.send('meat')
-})
 export default router
