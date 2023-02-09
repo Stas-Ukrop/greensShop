@@ -24,6 +24,6 @@ const drinkSchema = new Schema({
     { versionKey: false, timestamps: true },
 )
 
-const drinks = model('green', drinkSchema)
+const drinks = model('drink', drinkSchema)
 
 export default drinks

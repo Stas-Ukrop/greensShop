@@ -34,6 +34,9 @@ const userSchema = new Schema({
     token: {
         type: String,
         default: null
+    },
+    image: {
+        type: String,
     }
 }, {
     versionKey: false,

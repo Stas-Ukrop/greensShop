@@ -2,7 +2,9 @@ import BakedGoods from "../../../repositories/listGoods/bakedGoods/bakedGoods.js
 import code from '../../../helpers/number.js'
 const getAll = async (req, res, next) => {
     try {
-        const bakedGoods = await BakedGoods.getAll()
+        const { page = 1, limit = 20 } = req.query
+        const skip = (page - 1) * limit
+        const bakedGoods = await BakedGoods.getAll(skip, Number(limit))
         res.json({ status: 'success', code: code.HttpCode.OK, data: { bakedGoods } })
     } catch (error) {
         next(error)

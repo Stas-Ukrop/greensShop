@@ -24,6 +24,6 @@ const vegetablesSchema = new Schema({
     { versionKey: false, timestamps: true },
 )
 
-const Vegetables = model('driedFruit', vegetablesSchema)
+const Vegetables = model('vegetable', vegetablesSchema)
 
 export default Vegetables

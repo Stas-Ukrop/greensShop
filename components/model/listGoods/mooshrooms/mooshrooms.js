@@ -24,6 +24,6 @@ const mooshroomSchema = new Schema({
     { versionKey: false, timestamps: true },
 )
 
-const mooshroom = model('nut', mooshroomSchema)
+const mooshroom = model('mooshroom', mooshroomSchema)
 
 export default mooshroom

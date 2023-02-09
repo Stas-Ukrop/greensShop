@@ -1,7 +1,7 @@
 import BakedGood from '../../../model/listGoods/bakedGoods/bakedGoods.js'
 
-const getAll = async () => {
-    const result = await BakedGood.find()
+const getAll = async (skip, limit) => {
+    const result = await BakedGood.find({}, "", { skip, limit })
     return result
 }
 
