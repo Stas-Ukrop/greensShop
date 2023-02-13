@@ -3,6 +3,9 @@ import arr from '../../helpers/number.js'
 import jwt from 'jsonwebtoken'
 import bcryptjs from 'bcryptjs'
 import dotenv from 'dotenv/config'
+import path from 'path'
+import fs from 'fs/promises'
+import { product_dir } from '../../config/upload.js'
 
 const SECRET_KEY = process.env.SECRET_KEY
 const SALT_WORK = Number(process.env.SALT_WORK)
@@ -110,6 +113,20 @@ const update = async (req, res, next) => {
         next(error)
     }
 }
+const avatar = async (req, res) => {
+    const { path: tempUpload, originalname } = req.file
+    console.log(tempUpload)
+    const resultUpload = path.join(product_dir, originalname)
+    console.log(resultUpload)
+    try {
+        await fs.rename(tempUpload, resultUpload)
+        await User.update(req.user._id, req.body)
+        res.status(200).json({ status: 'success', code: 200, data: { resultUpload } })
+    } catch (error) {
+        await fs.unlink(tempUpload)
+        res.status(404).json({ status: 'error', code: 404, message: 'Invalid credentials' })
+    }
+}
 export default {
     register,
     login,
@@ -117,5 +134,6 @@ export default {
     getAll,
     getById,
     remove,
-    update
+    update,
+    avatar
 }

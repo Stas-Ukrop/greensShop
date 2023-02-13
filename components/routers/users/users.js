@@ -5,25 +5,14 @@ import guard from '../../config/guard.js'
 import { isValid } from '../../config/isValidId.js'
 import { isAdmin } from '../../config/isAdmin.js'
 import { upload } from '../../config/upload.js'
-import { upload_dir, product_dir } from '../../config/upload.js'
-import path from 'path'
-import fs from 'fs/promises'
+
+
 const userRouter = express.Router()
 
-userRouter.post('/register', upload.single('image'), async (req, res) => {
-    const { path: tempUpload, originalname } = req.file
-    console.log(tempUpload)
-    const resultUpload = path.join(product_dir, originalname)
-    console.log(resultUpload)
-    try {
-        await fs.rename(tempUpload, resultUpload)
-    } catch (error) {
-        await fs.unlink(tempUpload)
-    }
-
-}, Validation.validationSignUpUser, controllersUser.register)
+userRouter.post('/register', Validation.validationSignUpUser, controllersUser.register)
 userRouter.post('/login', Validation.validateSignInUser, controllersUser.login)
 userRouter.get('/logout', guard, controllersUser.logout)
+userRouter.get('/avatar', guard, upload.single('avatar'), controllersUser.avatar)
 
 userRouter.get('/getAll', guard, isAdmin, controllersUser.getAll)
 userRouter
