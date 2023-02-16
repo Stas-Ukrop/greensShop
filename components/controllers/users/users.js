@@ -120,7 +120,7 @@ const avatar = async (req, res) => {
     console.log(resultUpload)
     try {
         await fs.rename(tempUpload, resultUpload)
-        await User.update(req.user._id, req.body)
+        await User.updateAvatar(req.user._id, resultUpload)
         res.status(200).json({ status: 'success', code: 200, data: { resultUpload } })
     } catch (error) {
         await fs.unlink(tempUpload)

@@ -37,7 +37,9 @@ const updateToken = async (id, token) => {
         _id: id
     }, { token })
 }
-
+const updateAvatar = async (id, avatar) => {
+    return await User.updateOne({ _id: id }, { avatar })
+}
 export default {
     getAll,
     getById,
@@ -45,5 +47,6 @@ export default {
     update,
     updateToken,
     findByEmail,
-    create
+    create,
+    updateAvatar
 }
