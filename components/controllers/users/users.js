@@ -6,9 +6,11 @@ import dotenv from 'dotenv/config'
 import path from 'path'
 import fs from 'fs/promises'
 import { product_dir } from '../../config/upload.js'
+import { uploadCloud } from '../../config/uploadAvatar.js'
 
 const SECRET_KEY = process.env.SECRET_KEY
 const SALT_WORK = Number(process.env.SALT_WORK)
+
 
 const register = async (req, res, next) => {
     try {
@@ -114,17 +116,18 @@ const update = async (req, res, next) => {
     }
 }
 const avatar = async (req, res) => {
-    const { path: tempUpload, originalname } = req.file
-    console.log(tempUpload)
+    const { originalname } = req.file
     const resultUpload = path.join(product_dir, originalname)
-    console.log(resultUpload)
     try {
-        await fs.rename(tempUpload, resultUpload)
-        await User.updateAvatar(req.user._id, resultUpload)
-        res.status(200).json({ status: 'success', code: 200, data: { resultUpload } })
+        await fs.rename(req.file.path, resultUpload)
+
+        const { secure_url } = await uploadCloud(resultUpload)
+        await User.updateAvatar(req.user._id, secure_url)
+
+        res.status(200).json({ status: 'success', code: 200, data: { secure_url } })
     } catch (error) {
-        await fs.unlink(tempUpload)
-        res.status(404).json({ status: 'error', code: 404, message: 'Invalid credentials' })
+        await fs.unlink(req.file.path)
+        res.status(404).json({ status: 'error', code: 404, message: 'Invalid credentials of avatar' })
     }
 }
 export default {
